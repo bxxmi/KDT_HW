@@ -15,29 +15,34 @@ body {
 .container-left {
     color: white;
     padding: 20px;
+    display: flex;
 }
 
 .logo {
-    float: left;
-    margin-right: 8px;
+    flex: none;
 }
 
 .logo img {
     display: block;
+    padding: 10px;
 }
 
 .inputbox {
-    float:left;
-    padding:8px 20px;
+    padding: 15px;
 }
 
-.menu {
-    float:left;
+ul {
+   display: flex;
+   padding: 0;
+}
+
+ul li {
+   list-style: none;
 }
 
 .menu-item {
-    float:left;
-    padding: 8px 20px;
+    flex: none;
+    padding: 0 20px;
     font-weight: bold;
 }
 
