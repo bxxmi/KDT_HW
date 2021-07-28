@@ -1,4 +1,4 @@
-# mini-project1
-[KDT] Intro to Programming part : HTML&CSS mini project1
+# mini-project2
+[KDT] Intro to Programming part : JavaScript mini project2
 
-* GitHub 웹 페이지의 Header 구현하기
+* JavaScript를 활용해서 가격 별 상품 추천 구현하기
