@@ -27,3 +27,26 @@ const msg = item ?
 alert(msg);
 
 // 아래에 getItemByAmount 함수를 작성하세요.
+const getItemByAmount = (data, amount) => {
+    // 사용자의 입력 유효값 범위 지정: 숫자가 아닌 경우, 0인 경우 null
+    if(amount === false || amount === 0) {
+        return null;
+    }
+    // 살 수 있는 상품을 저장하기 위한 변수
+    let index;
+
+    for(let i=0; i<data.length; i++) {
+        // 조건: 사용자가 입력한 금액보다 상품의 가격이 더 비싼 경우
+        if(amount < data[i].price) {
+            // continue: 해당 항목을 제외하고 그 다음 항목과 비교하기 위함
+            continue;
+          // 사용자가 입력한 금액보다 상품의 가격이 저렴한 경우
+        } else { 
+            // 사용자가 상품을 살 수 있기 때문에 해당 상품의 인덱스 번호가 저장됨
+            index = i;
+        }
+    }
+    // 상품이 존재한다면 해당 상품의 데이터를 출력하고, 그게 아니라면 null을 출력
+    return index != null ? data[index] : null;
+};
+
