@@ -24,13 +24,16 @@
 !pip install beautifulsoup4
 '''
 
+from abc import abstractstaticmethod
+from typing import Text
+import openpyxl
 from NaverNewsCrawler import NaverNewsCrawler
 
 ####사용자로 부터 기사 수집을 원하는 키워드를 input을 이용해 입력받아 ? 부분에 넣으세요
-crawler = NaverNewsCrawler(?)
+crawler = NaverNewsCrawler(input('수집을 원하는 키워드를 입력하세요: '))
 
 #### 수집한 데이터를 저장할 엑셀 파일명을 input을 이용해 입력받아 ? 부분에 넣으세요
-crawler.get_news(?)
+crawler.get_news(input('저장할 파일의 이름을 입력하세요(확장자까지 입력): '))
 
 #### 아래코드를 실행해 이메일 발송 기능에 필요한 모듈을 임포트하세요.
 from email.mime.text import MIMEText
@@ -41,7 +44,7 @@ import re
 #### gmail 발송 기능에 필요한 계정 정보를 아래 코드에 입력하세요.
 SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 465
-SMTP_USER = ''
+SMTP_USER = 'bmi6638@gmail.com'
 SMTP_PASSWORD = ''
 
 #### 아래 코드를 실행해 메일 발송에 필요한 send_mail 함수를 만드세요.
@@ -79,11 +82,26 @@ def send_mail(name, addr, subject, contents, attachment=None):
     smtp.sendmail(SMTP_USER, addr, msg.as_string())
     smtp.close()
 
-#### 프로젝트 폴더에 있는 email_list.xlsx 파일에 이메일 받을 사람들의 정보를 입력하세요.
-
-
 #### 엑셀 파일의 정보를 읽어올 수 있는 모듈을 import하세요.
+from openpyxl import load_workbook
+wb = load_workbook('email_list.xlsx')
 
+#### 프로젝트 폴더에 있는 email_list.xlsx 파일에 이메일 받을 사람들의 정보를 입력하세요.
+ws = wb['Sheet1']
+
+number = input("숫자: ")
+user_name = input("이름: ")
+user_email = input("이메일: ")
+
+# 행 단위로 입력받은 데이터 추가
+ws.append([number, user_name, user_email])
+wb.save('email_list.xlsx')
 
 #### email_list.xlsx 파일을 읽어와 해당 사람들에게 수집한 뉴스 정보 엑셀 파일을 send_mail 함수를 이용해 전송하세요.
-send_mail()
+contents = '''
+안녕하세요. 메일 보내드립니다.
+'''
+# 한 행씩 읽어서 여러명에게 메일 보내기
+for row in ws.iter_rows():
+    addr = row[2].value
+    send_mail(SMTP_USER, addr, '자동화 파일입니다.', contents, 'sports.xlsx')
