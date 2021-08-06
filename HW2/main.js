@@ -34,7 +34,7 @@ const getItemByAmount = (data, amount) => {
     }
 
     // 살 수 있는 상품을 저장하기 위한 변수
-    let index;
+    const index;
 
     for(let i=0; i<data.length; i++) {
         // 조건: 사용자가 입력한 금액보다 상품의 가격이 더 비싼 경우
